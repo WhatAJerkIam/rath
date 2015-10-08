@@ -1,0 +1,71 @@
+﻿<?xml	version="1.0"	encoding="UTF-8"?>
+<rest-testcases enabled="true">
+  
+    <testcase id="6" priority="1" description="xjk" type="rpc">
+        <!-- optional -->
+        <url>http://localhost:9001/dubbotest/directproxy</url>
+        <method>post</method>
+        <headers>
+            <header name="Content-Type">application/json</header>
+        </headers>
+        <!-- optional -->
+       <rpc>
+       			<!-- 通过zk获取服务，二选一 -->
+       			<zkHost>172.24.2.35:2181</zkHost>
+       			<!-- 直连，二选一 -->
+       			<host>172.24.5.27:20880</host> 
+            <!-- required -->
+            <reference>com.wangyin.industry.fund.biz.api.XjkBizTransferOutFacade</reference>
+            <version>2.0.0</version>
+            <group>betafunc</group>
+            <action>transferOutTransaction</action>
+            <!-- required -->
+       </rpc>
+       <body>
+					{"speed":true,"bankCardId":"9892","paymentNo":"201505011648012155","tradeNo":"21393801256906","transType":"TransferToBankCard","tradeAmount":{
+					"currency":"CNY","amount":1L},"customerNo":"360000000000154045","tradeDate":"2015-09-15 16:11:00","channelType":"JD"}
+       </body>
+       <expect>
+            <status>200</status>
+       </expect>
+    </testcase>
+    
+    <testcase id="7" priority="1" description="xjk" type="rpc">
+        <!-- optional -->
+        <url>http://localhost:9001/dubbotest/directproxy</url>
+        <method>post</method>
+        <headers>
+            <header name="Content-Type">application/json</header>
+        </headers>
+        <!-- optional -->
+       <rpc>
+       			<!-- 通过zk获取服务，二选一 -->
+       			<!--zkHost>172.24.2.35:2181</zkHost-->
+       			<!-- 直连，二选一 -->
+       			<host>172.24.5.27:20880</host> 
+            <!-- required -->
+            <reference>com.wangyin.industry.fund.biz.api.XjkBizTransferOutFacade</reference>
+            <version>2.0.0</version>
+            <group>betafunc</group>
+            <action>transferOutTransaction</action>
+            <!-- required -->
+       </rpc>
+       <body>
+       		<args>
+       				<arg name="speed">true</arg>
+       				<arg name="bankCardId">9892</arg>
+       				<arg name="paymentNo">201505011648012139</arg>
+       				<arg name="tradeNo">21393801256897</arg>
+       				<arg name="transType">TransferToBankCard</arg>
+       				<arg name="tradeAmount">{"currency":CNY,"amount":1L}</arg>
+       				<arg name="customerNo">360000000000154045</arg>
+       				<arg name="tradeDate">2015-09-15 16:11:00</arg>
+       				<arg name="channelType">JD</arg>
+       		</args>
+       </body>
+       <expect>
+            <status>200</status>
+       </expect>
+    </testcase>
+</rest-testcases>
+

@@ -1,0 +1,142 @@
+﻿<?xml	version="1.0"	encoding="UTF-8"?>
+<rest-testcases enabled="true">
+
+    <testcase id="1" priority="1" description="测试${host.ip}">
+        <url>http://${host.ip}/obd-ws/ws/0.1/downlink/monitor</url>
+        <method>post</method>
+        <headers>
+            <header name="Content-Type">application/json</header>
+        </headers>
+        <body>
+            <args>
+                <arg name="imei">359094022661847</arg>
+                <arg name="status">true</arg>
+            </args>
+        </body>
+        <expect>
+            <!--检测http返回接口状态，404表示如果该接口返回404notfound，测试结果成功 -->
+            <status>404</status>
+        </expect>
+    </testcase>
+    
+    <testcase id="2" priority="1" description="测试expect">
+        <url>http://dp.jr.jd.com/service/fundValuation/160706.do</url>
+        <method>get</method>
+        <headers>
+            <header name="Content-Type">application/json</header>
+        </headers>
+        <body>
+            <args>
+                <arg name="callback">jQuery1830053054762072861195</arg>
+            </args>
+        </body>
+        <expect>
+            <!--200成功 -->
+        	  <status>200</status>
+            <body>
+                <!--返回结果包含参数-->
+            	<has>"fundCode":"160753"</has>
+            </body>
+        </expect>
+    </testcase>
+    
+     <testcase id="3" priority="1" description="测试get">
+        <url>http://www.baidu.com/s</url>
+        <method>get</method>
+        <headers>
+            <header name="Content-Type">application/json</header>
+        </headers>
+        <body>
+            <args>
+                <arg name="ie">utf-8</arg>
+                <arg name="wd">1111</arg>
+            </args>
+        </body>
+        <expect>
+            <status>200</status>
+        </expect>
+    </testcase>
+    <testcase id="4" priority="1" description="rpc example" type="rpc">
+        <!-- optional -->
+        <url>http://localhost:9001/dubbotest/directproxy</url>
+        <method>post</method>
+        <!-- optional -->
+       <rpc>
+       			<!-- 通过zk获取服务，二选一 ，ip为zk地址-->
+       			<!--zkHost>172.24.2.35:2181</zkHost-->
+       			<!-- 直连，二选一 ip为部署服务的地址-->
+       			<host>172.24.4.69:20883</host> 
+            <!-- required -->
+            <reference>com.wangyin.industry.fundshop.query.facade.IFundInfoQueryNSortFacade</reference>
+            <version>1.0.0</version> <!--接口版本-->
+            <group>shopbetafunc</group> <!--功能环境group-->
+            <action>query</action> <!--方法-->
+            <!-- required -->
+       </rpc>
+       <body>{"anchorId":26,"pageSize":20,"orders":[{"column":"RISKLEVEL","orderby":"DESC"}],"infoNeed":false}</body>
+       <expect>
+            <status>200</status>
+       </expect>
+    </testcase>
+    
+    <testcase id="5" priority="1" description="rpc example2" type="rpc">
+        <!-- optional -->
+        <url>http://localhost:9001/dubbotest/directproxy</url>
+        <method>post</method>
+        <headers>
+            <header name="Content-Type">application/json</header>
+        </headers>
+        <!-- optional -->
+       <rpc>
+       			<!-- 通过zk获取服务，二选一 -->
+       			<zkHost>172.24.2.35:2181</zkHost>
+       			<!-- 直连，二选一 -->
+       			<host>172.24.4.69:20883</host> 
+            <!-- required -->
+            <reference>com.wangyin.industry.fundshop.query.facade.IFundInfoQueryNSortFacade</reference>
+            <version>1.0.0</version>
+            <group>shopbetafunc</group>
+            <action>query</action>
+            <!-- required -->
+       </rpc>
+       <body>
+       		<args>
+       				<arg name="1">{"anchorId":26,"pageSize":20,"orders":[{"column":"RISKLEVEL","orderby":"DESC"}],"infoNeed":false}</arg>
+       		</args>
+       </body>
+       <expect>
+            <status>200</status>
+       </expect>
+    </testcase> -->
+    
+    
+    <testcase id="6" priority="1" description="xjk" type="rpc">
+        <!-- optional -->
+        <url>http://localhost:9001/dubbotest/directproxy</url>
+        <method>post</method>
+        <headers>
+            <header name="Content-Type">application/json</header>
+        </headers>
+        <!-- optional -->
+       <rpc>
+       			<!-- 通过zk获取服务，二选一 -->
+       			<!-- <zkHost>172.24.2.35:2181</zkHost> -->
+       			<!-- 直连，二选一 -->
+       			<host>172.24.5.27:20880</host> 
+            <!-- required -->
+            <reference>com.wangyin.industry.fund.biz.api.XjkBizTransferOutFacade</reference>
+            <version>2.0.0</version>
+            <group>betafunc</group>
+            <action>transferOutTransaction</action>
+            <!-- required -->
+       </rpc>
+       <body>
+					{"speed":true,"bankCardId":9892,"paymentNo":201505011648012139,"tradeNo":21393801256897,"transType":"TransferToBankCard","tradeAmount":{
+					"currency":"CNY", amount:1L},"customerNo":360000000000154045,"tradeDate":"2015-09-15 16:11:00","channelType":"JD"}
+       </body>
+       <expect>
+            <status>200</status>
+       </expect>
+    </testcase>
+</rest-testcases>
+
